@@ -1,0 +1,43 @@
+
+-Mobiles
+-- Apple 
+-- Samsung 
+-- OPPO
+
+-Computer
+-- Laptops
+-- Desktop 
+
+-Electronics
+-- Smart TV
+-- Camera 
+
+-TVs & Appliances
+-- Washing Machine 
+-- Air Conditioners
+
+-Fashion
+-- Mens Top Were 
+-- Mens Footware 
+--Woman Footware 
+
+-Baby & Kids
+-- Kids Footware 
+-- Kids Clothing 
+-- Baby Care 
+
+-Home & Furniture
+-- Home Decor 
+-- Bed Room Furniture 
+-- Living Room Furniture 
+
+-Sports, Books
+-- Health and Nutrition 
+-- Home Gyms 
+-- Books 
+  
+Mobile Accessories 
+--Mobile Cases 
+--HeadPhone
+ 
+Others 
