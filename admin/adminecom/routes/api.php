@@ -4,6 +4,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Admin\ContactController;
 use App\Http\Controllers\Admin\AboutController;
+use App\Http\Controllers\Admin\CategoryController;
 
 /*
 |--------------------------------------------------------------------------
@@ -22,3 +23,4 @@ use App\Http\Controllers\Admin\AboutController;
 
 Route::post('/postcontact', [ContactController::class, 'PostContact']);
 Route::get('/siteinfo', [AboutController::class, 'getSiteInfo']);
+Route::get('/allcats', [CategoryController::class, 'allCats']);
