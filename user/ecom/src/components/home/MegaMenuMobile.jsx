@@ -5,6 +5,7 @@ import { toast } from "react-toastify";
 const MegaMenuMobile = () => {
   const [menuData, setMenuData] = useState([]);
   useEffect(() => {
+    console.log(AppURL.AllCategoryDetails);
     fetch(AppURL.AllCategoryDetails)
       .then((data) => data.json())
       .then((data) => {
@@ -25,20 +26,23 @@ const MegaMenuMobile = () => {
       panel.style.maxHeight = panel.scrollHeight + "px";
     }
   };
-
+  console.log(menuData);
   const MyView = menuData.map((catItem, i) => {
     return (
       <div key={i.toString()}>
-        <button onClick={MenuItemClick} className="accordionAll">
-          <img className="accordionMenuIconAll" src={catItem.category_image} />
+        <button onClick={MenuItemClick} className="accordionMobile">
+          <img
+            className="accordionMenuIconMobile"
+            src={catItem.category_image}
+          />
           &nbsp; {catItem.category_name}
         </button>
-        <div className="panelAll">
+        <div className="panelMobile">
           <ul>
             {catItem.subcategory.map((sub, i) => {
               return (
                 <li>
-                  <a href="#" className="accordionItemAll">
+                  <a href="#" className="accordionItemMobile">
                     {sub.subcategory_name}{" "}
                   </a>
                 </li>
@@ -51,8 +55,8 @@ const MegaMenuMobile = () => {
   });
 
   return (
-    <div className="accordionMenuDivAll">
-      <div className="accordionMenuDivInsideAll">{MyView}</div>
+    <div className="accordionMenuDivMobile">
+      <div className="accordionMenuDivInsideMobile">{MyView}</div>
     </div>
   );
 };
