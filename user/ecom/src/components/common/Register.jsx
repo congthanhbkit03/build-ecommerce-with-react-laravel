@@ -1,45 +1,63 @@
-import React, { Component, Fragment, useState } from "react";
+import React, { Component, useState } from "react";
 import { Container, Row, Col, Form, Button } from "react-bootstrap";
-import Login from "../../assets/images/login.png";
 import { Link, useNavigate } from "react-router-dom";
+import Login from "../../assets/images/login.png";
+import { toast } from "react-toastify";
 import AppURL from "../../api/AppURL";
-const UserLogin = ({ user, setUser }) => {
+
+const Register = ({ user, setUser }) => {
+  const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [passwordConfirmation, setPasswordConfirmation] = useState("");
   const [message, setMessage] = useState("");
-  const [loggedIn, setLoggedIn] = useState("");
-  //router v6 cho redirect
+  const [loggedIn, setLoggedIn] = useState(false);
   const navigate = useNavigate();
 
-  // Login Form Submit Method
   const formSubmit = (e) => {
     e.preventDefault();
-    // const data = {
-    //   email: email,
-    //   password: password,
-    // };
-    let myFormData = new FormData();
-    myFormData.append("email", email);
-    myFormData.append("password", password);
-    fetch(AppURL.UserLogin, { method: "post", body: myFormData })
+
+    let MyFormData = new FormData();
+    MyFormData.append("name", name);
+    MyFormData.append("email", email);
+    MyFormData.append("password", password);
+    MyFormData.append("password_confirmation", passwordConfirmation);
+
+    // axios
+    //   .post(AppURL.PostContact, MyFormData)
+    fetch(AppURL.UserRegister, {
+      method: "post",
+      body: MyFormData,
+    })
       .then((data) => data.json())
       .then((data) => {
-        console.log(data);
-        setMessage(data.message);
-        setLoggedIn(true);
         localStorage.setItem("token", data.token);
-        //luu tru user
-        setUser(data.user);
+        setLoggedIn(true);
+        setUser(data);
       })
-      .catch((error) => {});
+      .catch(function (error) {
+        console.log("Catch: ", error);
+        // alert(error);
+        toast.error("Có lỗi xảy ra - Kiểm tra lại thông tin");
+        // btnSend.innerHTML = "Send";
+      })
+      .then(() => {
+        // console.log("Finally hẻe");
+        // //clear form
+        // setEmail("");
+        // setName("");
+        // setMessage("");
+        // btnSend.innerHTML = "Send";
+      });
   };
 
-  //neu da dang nhap thi chuyen huong sang trang Profile
+  /// After Login Redirect to Profile Page
   if (loggedIn) {
     return navigate("/profile");
   }
+
   return (
-    <Fragment>
+    <>
       <Container>
         <Row className="p-2">
           <Col
@@ -58,7 +76,16 @@ const UserLogin = ({ user, setUser }) => {
                 xs={12}
               >
                 <Form className="onboardForm" onSubmit={formSubmit}>
-                  <h4 className="section-title-login"> Đăng nhập </h4>
+                  <h4 className="section-title-login">
+                    {" "}
+                    Đăng ký tài khoản người dùng{" "}
+                  </h4>
+                  <input
+                    className="form-control m-2"
+                    type="text"
+                    placeholder="Enter Your Name"
+                    onChange={(e) => setName(e.target.value)}
+                  />
                   <input
                     className="form-control m-2"
                     type="email"
@@ -71,27 +98,33 @@ const UserLogin = ({ user, setUser }) => {
                     placeholder="Enter Your Password"
                     onChange={(e) => setPassword(e.target.value)}
                   />
+                  <input
+                    className="form-control m-2"
+                    type="password"
+                    placeholder="Confirm Your Password"
+                    onChange={(e) => setPasswordConfirmation(e.target.value)}
+                  />
                   <Button
                     className="btn btn-block m-2 site-btn-login"
                     type="submit"
                   >
                     {" "}
-                    Login{" "}
+                    Đăng ký{" "}
                   </Button>
                   <br></br> <br></br>
                   <hr />
                   <p>
                     {" "}
                     <b> Forget My Password? </b>
-                    <Link>
+                    <Link to="/forget">
                       <b> Forget Password </b>{" "}
                     </Link>{" "}
                   </p>
                   <p>
                     {" "}
-                    <b> Don't Have An Account ? </b>
-                    <Link to="/register">
-                      <b> Register </b>{" "}
+                    <b> Already Have An Account ? </b>
+                    <Link to="/login">
+                      <b> Login </b>{" "}
                     </Link>{" "}
                   </p>
                 </Form>
@@ -104,8 +137,8 @@ const UserLogin = ({ user, setUser }) => {
           </Col>
         </Row>
       </Container>
-    </Fragment>
+    </>
   );
 };
 
-export default UserLogin;
+export default Register;

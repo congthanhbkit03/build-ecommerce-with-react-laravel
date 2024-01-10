@@ -3,14 +3,16 @@ import FooterDesktop from "../components/common/FooterDesktop";
 import FooterMobile from "../components/common/FooterMobile";
 import NavMenuDesktop from "../components/common/NavMenuDesktop";
 import NavMenuMobile from "../components/common/NavMenuMobile";
+import Profile from "../components/common/Profile";
 import { defaultoptions } from "../utils/auth";
-import UserLogin from "../components/common/UserLogin";
 import AppURL from "../api/AppURL";
 
-const UserLoginPage = (e) => {
-  const [user, setUser] = useState();
+const ProfilePage = () => {
+  const [user, setUser] = useState({});
   useEffect(() => {
     window.scroll(0, 0);
+    console.log(defaultoptions);
+    //defauloptions co' gan token ben trong Authenrization: Bearer token...
     fetch(AppURL.UserData, defaultoptions)
       .then((data) => data.json())
       .then((data) => {
@@ -21,7 +23,6 @@ const UserLoginPage = (e) => {
         console.log(error);
       });
   }, []);
-
   return (
     <Fragment>
       <div className="Desktop">
@@ -32,7 +33,7 @@ const UserLoginPage = (e) => {
         <NavMenuMobile />
       </div>
 
-      <UserLogin user={user} setUser={setUser} />
+      <Profile user={user} />
 
       <div className="Desktop">
         <FooterDesktop />
@@ -45,4 +46,4 @@ const UserLoginPage = (e) => {
   );
 };
 
-export default UserLoginPage;
+export default ProfilePage;

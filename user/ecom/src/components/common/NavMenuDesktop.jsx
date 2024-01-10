@@ -1,9 +1,23 @@
-import React, { Component } from "react";
+import React, { Component, useEffect } from "react";
 import { Navbar, Container, Row, Col, Button } from "react-bootstrap";
 import Logo from "../../assets/images/logo.png";
 import { Link } from "react-router-dom";
+import { defaultoptions } from "../../utils/auth";
 
 function NavMenuDesktop() {
+  // useEffect(() => {
+  //   window.scroll(0, 0);
+  //   console.log(defaultoptions);
+  //   //defauloptions co' gan token ben trong Authenrization: Bearer token...
+  //   fetch(AppURL.UserData, defaultoptions)
+  //     .then((data) => data.json())
+  //     .then((data) => {
+  //       console.log(data);
+  //     })
+  //     .catch((error) => {
+  //       console.log(error);
+  //     });
+  // }, []);
   return (
     <>
       <div className="TopSectionDown">
@@ -42,13 +56,13 @@ function NavMenuDesktop() {
                     <span className="badge text-white bg-danger">5</span>
                   </sup>
                 </Link>
-                <a className="btn">
-                  <i className="fa h4 fa-mobile-alt"></i>
-                </a>
-                <Link to="/login" className="h4 btn">
-                  LOGIN
-                </Link>
 
+                <Link to="/login" className="h4 btn">
+                  Đăng nhập
+                </Link>
+                <Link to="/register" className="h4 btn">
+                  Đăng ký
+                </Link>
                 <Link to="/cart" className="cart-btn">
                   <i className="fa fa-shopping-cart"></i> 3 Items{" "}
                 </Link>

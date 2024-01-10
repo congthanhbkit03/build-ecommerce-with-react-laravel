@@ -2,9 +2,17 @@
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\User\AuthController;
+use App\Http\Controllers\User\UserController;
+use App\Http\Controllers\User\ForgetController;
+use App\Http\Controllers\User\ResetController;
 use App\Http\Controllers\Admin\ContactController;
 use App\Http\Controllers\Admin\AboutController;
 use App\Http\Controllers\Admin\CategoryController;
+use App\Http\Controllers\Admin\ProductController;
+use App\Http\Controllers\Admin\SliderController;
+use App\Http\Controllers\Admin\ProductDetailController;
+use App\Http\Controllers\Admin\NotificationController;
 
 /*
 |--------------------------------------------------------------------------
@@ -17,10 +25,37 @@ use App\Http\Controllers\Admin\CategoryController;
 |
 */
 
-// Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
-//     return $request->user();
-// });
+
+ /////////////// User Login API Start ////////////////////////
+
+ // Login Routes 
+Route::post('/login',[AuthController::class, 'Login']);
+
+ // Register Routes 
+Route::post('/register',[AuthController::class, 'Register']);
+
+ // Forget Password Routes 
+Route::post('/forgetpassword',[ForgetController::class, 'ForgetPassword']);
+
+ // Reset Password Routes 
+Route::post('/resetpassword',[ResetController::class, 'ResetPassword']);
+
+ // Current User Route 
+Route::get('/user',[UserController::class, 'User'])->middleware('auth:api');
+
+ /////////////// End User Login API Start ////////////////////////
 
 Route::post('/postcontact', [ContactController::class, 'PostContact']);
 Route::get('/siteinfo', [AboutController::class, 'getSiteInfo']);
 Route::get('/allcats', [CategoryController::class, 'allCats']);
+Route::get('/productsByRemark/{remark}', [ProductController::class, 'ProductListByRemark']);
+Route::get('/productsByCategory/{category}', [ProductController::class, 'ProductListByCategory']);
+Route::get('/productsBySubcategory/{subcategory}', [ProductController::class, 'ProductListBySubcategory']);
+Route::get('/homesliders', [SliderController::class, 'GetAllSliders']);
+Route::get('/productdetail/{id}', [ProductDetailController::class, 'ProductDetail']);
+//search
+Route::get('/search/{key}', [ProductController::class, 'ProductListBySearch']);
+//notification
+Route::get('/notification', [NotificationController::class, 'NotificationHistory']);
+
+

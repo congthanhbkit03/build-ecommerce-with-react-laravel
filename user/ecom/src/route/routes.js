@@ -10,6 +10,10 @@ import NotificationPage from "../pages/NotificationPage";
 import FavouritePage from "../pages/FavouritePage";
 import CartPage from "../pages/CartPage";
 import AboutPage from "../pages/AboutPage";
+import RegisterPage from "../pages/RegisterPage";
+import ForgetPasswordPage from "../pages/ForgetPasswordPage";
+import ResetPasswordPage from "../pages/ResetPasswordPage";
+import ProfilePage from "../pages/ProfilePage";
 
 export const router = createBrowserRouter([
   {
@@ -19,6 +23,23 @@ export const router = createBrowserRouter([
   {
     path: "/login",
     element: <UserLoginPage />,
+  },
+  {
+    path: "/register",
+    element: <RegisterPage />,
+  },
+  {
+    path: "/forget",
+    element: <ForgetPasswordPage />,
+  },
+  {
+    path: "/reset/:id",
+    element: <ResetPasswordPage />,
+  },
+  {
+    path: "/profile",
+    element: <ProfilePage />,
+    // loader:
   },
   {
     path: "/contact",
