@@ -16,7 +16,7 @@ function FooterDesktop() {
     fetch(AppURL.SiteInfo)
       .then((data) => data.json())
       .then((data) => {
-        console.log(data);
+        // console.log(data);
         // setAbout(data[0].about);
         setYtLink(data[0].youtube_link);
         setFbLink(data[0].facebook_link);

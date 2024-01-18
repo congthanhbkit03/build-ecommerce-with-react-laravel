@@ -8,19 +8,19 @@ import UserLogin from "../components/common/UserLogin";
 import AppURL from "../api/AppURL";
 
 const UserLoginPage = (e) => {
-  const [user, setUser] = useState();
-  useEffect(() => {
-    window.scroll(0, 0);
-    fetch(AppURL.UserData, defaultoptions)
-      .then((data) => data.json())
-      .then((data) => {
-        console.log(data);
-        setUser(data);
-      })
-      .catch((error) => {
-        console.log(error);
-      });
-  }, []);
+  // const [user, setUser] = useState();
+  // useEffect(() => {
+  //   window.scroll(0, 0);
+  //   fetch(AppURL.UserData, defaultoptions)
+  //     .then((data) => data.json())
+  //     .then((data) => {
+  //       console.log(data);
+  //       setUser(data);
+  //     })
+  //     .catch((error) => {
+  //       console.log(error);
+  //     });
+  // }, []);
 
   return (
     <Fragment>
@@ -32,7 +32,8 @@ const UserLoginPage = (e) => {
         <NavMenuMobile />
       </div>
 
-      <UserLogin user={user} setUser={setUser} />
+      {/* <UserLogin user={user} setUser={setUser} /> */}
+      <UserLogin />
 
       <div className="Desktop">
         <FooterDesktop />

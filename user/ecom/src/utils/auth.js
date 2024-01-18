@@ -25,7 +25,7 @@ export function tokenLoader() {
 }
 
 // lay token tu storage va tao headers
-export const defaultoptions = {
+export const tokenoptions = {
   headers: {
     Authorization: "Bearer " + getAuthToken(),
   },

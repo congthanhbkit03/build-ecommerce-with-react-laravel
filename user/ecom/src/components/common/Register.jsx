@@ -4,6 +4,8 @@ import { Link, useNavigate } from "react-router-dom";
 import Login from "../../assets/images/login.png";
 import { toast } from "react-toastify";
 import AppURL from "../../api/AppURL";
+import { userRegister } from "../../features/userSlice";
+import { useDispatch, useSelector } from "react-redux";
 
 const Register = ({ user, setUser }) => {
   const [name, setName] = useState("");
@@ -11,8 +13,12 @@ const Register = ({ user, setUser }) => {
   const [password, setPassword] = useState("");
   const [passwordConfirmation, setPasswordConfirmation] = useState("");
   const [message, setMessage] = useState("");
-  const [loggedIn, setLoggedIn] = useState(false);
+
+  //redux state
+  const { loading, error, userData } = useSelector((state) => state.user); //state.user la lay key trong store.js
+
   const navigate = useNavigate();
+  const dispatch = useDispatch();
 
   const formSubmit = (e) => {
     e.preventDefault();
@@ -23,36 +29,37 @@ const Register = ({ user, setUser }) => {
     MyFormData.append("password", password);
     MyFormData.append("password_confirmation", passwordConfirmation);
 
+    dispatch(userRegister(MyFormData));
     // axios
     //   .post(AppURL.PostContact, MyFormData)
-    fetch(AppURL.UserRegister, {
-      method: "post",
-      body: MyFormData,
-    })
-      .then((data) => data.json())
-      .then((data) => {
-        localStorage.setItem("token", data.token);
-        setLoggedIn(true);
-        setUser(data);
-      })
-      .catch(function (error) {
-        console.log("Catch: ", error);
-        // alert(error);
-        toast.error("Có lỗi xảy ra - Kiểm tra lại thông tin");
-        // btnSend.innerHTML = "Send";
-      })
-      .then(() => {
-        // console.log("Finally hẻe");
-        // //clear form
-        // setEmail("");
-        // setName("");
-        // setMessage("");
-        // btnSend.innerHTML = "Send";
-      });
+    // fetch(AppURL.UserRegister, {
+    //   method: "post",
+    //   body: MyFormData,
+    // })
+    //   .then((data) => data.json())
+    //   .then((data) => {
+    //     localStorage.setItem("token", data.token);
+    //     setLoggedIn(true);
+    //     setUser(data);
+    //   })
+    //   .catch(function (error) {
+    //     console.log("Catch: ", error);
+    //     // alert(error);
+    //     toast.error("Có lỗi xảy ra - Kiểm tra lại thông tin");
+    //     // btnSend.innerHTML = "Send";
+    //   })
+    //   .then(() => {
+    //     // console.log("Finally hẻe");
+    //     // //clear form
+    //     // setEmail("");
+    //     // setName("");
+    //     // setMessage("");
+    //     // btnSend.innerHTML = "Send";
+    //   });
   };
 
   /// After Login Redirect to Profile Page
-  if (loggedIn) {
+  if (userData) {
     return navigate("/profile");
   }
 

@@ -3,41 +3,54 @@ import { Container, Row, Col, Form, Button } from "react-bootstrap";
 import Login from "../../assets/images/login.png";
 import { Link, useNavigate } from "react-router-dom";
 import AppURL from "../../api/AppURL";
+import { useDispatch, useSelector } from "react-redux";
+import { userLogin } from "../../features/userSlice";
 const UserLogin = ({ user, setUser }) => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [message, setMessage] = useState("");
-  const [loggedIn, setLoggedIn] = useState("");
+  // const [loggedIn, setLoggedIn] = useState("");
+
+  //redux state
+  const { loading, error, userData } = useSelector((state) => state.user); //state.user la lay key trong store.js
   //router v6 cho redirect
   const navigate = useNavigate();
+  const dispatch = useDispatch();
+
+  //neu da dang nhap thi chuyen huong sang trang Profile
+  console.log(userData);
+  if (userData) {
+    localStorage.setItem("token", userData.token);
+
+    return navigate("/profile");
+  }
 
   // Login Form Submit Method
   const formSubmit = (e) => {
     e.preventDefault();
-    // const data = {
-    //   email: email,
-    //   password: password,
-    // };
-    let myFormData = new FormData();
-    myFormData.append("email", email);
-    myFormData.append("password", password);
-    fetch(AppURL.UserLogin, { method: "post", body: myFormData })
-      .then((data) => data.json())
-      .then((data) => {
-        console.log(data);
-        setMessage(data.message);
-        setLoggedIn(true);
-        localStorage.setItem("token", data.token);
-        //luu tru user
-        setUser(data.user);
-      })
-      .catch((error) => {});
+
+    // let myFormData = new FormData();
+    // myFormData.append("email", email);
+    // myFormData.append("password", password);
+    // fetch(AppURL.UserLogin, { method: "post", body: myFormData })
+    //   .then((data) => data.json())
+    //   .then((data) => {
+    //     console.log(data);
+    //     setMessage(data.message);
+    //     setLoggedIn(true);
+    //     //luu tru user
+    //     setUser(data.user);
+    //   })
+    //   .catch((error) => {});
+
+    const data = {
+      email: email,
+      password: password,
+    };
+
+    dispatch(userLogin(data));
   };
 
-  //neu da dang nhap thi chuyen huong sang trang Profile
-  if (loggedIn) {
-    return navigate("/profile");
-  }
   return (
     <Fragment>
       <Container>

@@ -12,7 +12,7 @@ const MegaMenu = ({ data }) => {
   };
 
   const CatList = data;
-  console.log(CatList);
+  // console.log(CatList);
 
   const MyView = CatList.map((CatList, i) => {
     return (
