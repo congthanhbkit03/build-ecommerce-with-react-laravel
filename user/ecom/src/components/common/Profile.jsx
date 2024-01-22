@@ -7,8 +7,9 @@ const Profile = () => {
   const navigate = useNavigate();
   //redux state
   const { loading, error, userData } = useSelector((state) => state.user);
+  console.log(userData);
   if (!userData) {
-    navigate("/login");
+    return navigate("/login");
   }
   return (
     <Fragment>

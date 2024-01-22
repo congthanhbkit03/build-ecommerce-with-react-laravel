@@ -96,7 +96,7 @@ const UserLogin = ({ user, setUser }) => {
                   <p>
                     {" "}
                     <b> Forget My Password? </b>
-                    <Link>
+                    <Link to="/forget">
                       <b> Forget Password </b>{" "}
                     </Link>{" "}
                   </p>

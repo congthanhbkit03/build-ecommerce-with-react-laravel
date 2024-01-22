@@ -23,13 +23,20 @@ const Register = ({ user, setUser }) => {
   const formSubmit = (e) => {
     e.preventDefault();
 
-    let MyFormData = new FormData();
-    MyFormData.append("name", name);
-    MyFormData.append("email", email);
-    MyFormData.append("password", password);
-    MyFormData.append("password_confirmation", passwordConfirmation);
+    // let MyFormData = new FormData();
+    // MyFormData.append("name", name);
+    // MyFormData.append("email", email);
+    // MyFormData.append("password", password);
+    // MyFormData.append("password_confirmation", passwordConfirmation);
+    const data = {
+      name: name,
+      email: email,
+      password: password,
+      password_confirmation: passwordConfirmation,
+    };
 
-    dispatch(userRegister(MyFormData));
+    // dispatch(userRegister(MyFormData));
+    dispatch(userRegister(data));
     // axios
     //   .post(AppURL.PostContact, MyFormData)
     // fetch(AppURL.UserRegister, {
@@ -60,6 +67,7 @@ const Register = ({ user, setUser }) => {
 
   /// After Login Redirect to Profile Page
   if (userData) {
+    localStorage.setItem("token", userData.token);
     return navigate("/profile");
   }
 
