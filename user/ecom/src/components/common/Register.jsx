@@ -15,7 +15,9 @@ const Register = ({ user, setUser }) => {
   const [message, setMessage] = useState("");
 
   //redux state
-  const { loading, error, userData } = useSelector((state) => state.user); //state.user la lay key trong store.js
+  const { loading, error, token, userData } = useSelector(
+    (state) => state.user
+  ); //state.user la lay key trong store.js
 
   const navigate = useNavigate();
   const dispatch = useDispatch();
@@ -66,8 +68,8 @@ const Register = ({ user, setUser }) => {
   };
 
   /// After Login Redirect to Profile Page
-  if (userData) {
-    localStorage.setItem("token", userData.token);
+  if (token) {
+    localStorage.setItem("token", token);
     return navigate("/profile");
   }
 

@@ -12,15 +12,17 @@ const UserLogin = ({ user, setUser }) => {
   // const [loggedIn, setLoggedIn] = useState("");
 
   //redux state
-  const { loading, error, userData } = useSelector((state) => state.user); //state.user la lay key trong store.js
+  const { loading, error, token, userData } = useSelector(
+    (state) => state.user
+  ); //state.user la lay key trong store.js
   //router v6 cho redirect
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
   //neu da dang nhap thi chuyen huong sang trang Profile
-  console.log(userData);
-  if (userData) {
-    localStorage.setItem("token", userData.token);
+  console.log(token);
+  if (token) {
+    // localStorage.setItem("token", token);
 
     return navigate("/profile");
   }

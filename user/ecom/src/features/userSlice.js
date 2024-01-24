@@ -1,16 +1,11 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import AppURL from "../api/AppURL";
-import { tokenoptions } from "../utils/auth";
 
-// fetch(AppURL.UserData, defaultoptions)
-//   .then((data) => data.json())
-//   .then((data) => {
-//     console.log(data);
-//     setUser(data);
-//   })
-//   .catch((error) => {
-//     console.log(error);
-//   });
+// initialize userToken from local storage
+const token = localStorage.getItem("token")
+  ? localStorage.getItem("token")
+  : null;
+
 export const userLogin = createAsyncThunk(
   "userLogin",
   async (data, { rejectWithValue }) => {
@@ -25,6 +20,7 @@ export const userLogin = createAsyncThunk(
     try {
       const json = await response.json();
       console.log(json);
+      localStorage.setItem("token", json.token);
       return json;
     } catch (error) {
       return rejectWithValue(error);
@@ -46,6 +42,7 @@ export const userRegister = createAsyncThunk(
     try {
       const json = await response.json();
       console.log(json);
+      localStorage.setItem("token", json.token);
       return json;
     } catch (error) {
       return rejectWithValue(error);
@@ -57,8 +54,14 @@ export const userRegister = createAsyncThunk(
 export const readUserByToken = createAsyncThunk(
   "readUserByToken",
   async (args, { rejectWithValue }) => {
-    const response = await fetch(AppURL.UserData, tokenoptions);
-    console.log(response);
+    //token options bao gom token dc lay tu localstorage len
+    const token = localStorage.getItem("token");
+    const response = await fetch(AppURL.UserData, {
+      headers: {
+        Authorization: "Bearer " + token,
+      },
+    });
+    // console.log(tokenoptions);
     try {
       const json = await response.json();
       console.log(json);
@@ -75,11 +78,13 @@ const userSlice = createSlice({
     userData: null, //sua may cho ben duoi user ra userData - gom token, message, user, ...
     loading: false,
     error: null,
+    token, //token: token
   },
   reducers: {
     logout: (state) => {
       localStorage.removeItem("token"); // deletes token from storage
       state.loading = false;
+      state.token = "";
       state.userData = null;
       state.error = null;
     },
@@ -102,7 +107,8 @@ const userSlice = createSlice({
       })
       .addCase(userLogin.fulfilled, (state, action) => {
         state.loading = false;
-        state.userData = action.payload;
+        state.token = action.payload.token;
+        // state.userData = action.payload.user;
       })
       .addCase(userLogin.rejected, (state, action) => {
         state.loading = false;
@@ -113,7 +119,8 @@ const userSlice = createSlice({
       })
       .addCase(userRegister.fulfilled, (state, action) => {
         state.loading = false;
-        state.userData = action.payload;
+        state.token = action.payload.token;
+        // state.userData = action.payload;
       })
       .addCase(userRegister.rejected, (state, action) => {
         state.loading = false;

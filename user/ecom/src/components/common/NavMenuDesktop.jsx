@@ -11,15 +11,15 @@ function NavMenuDesktop() {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   //redux state
-  const { userData } = useSelector((state) => state.user);
+  const { token, userData } = useSelector((state) => state.user);
 
   // automatically authenticate user if token is found
   useEffect(() => {
-    const token = localStorage.getItem("token");
+    // const token = localStorage.getItem("token");
     if (token) {
       dispatch(readUserByToken());
     }
-  }, []);
+  }, [token]);
 
   const logoutHandler = (e) => {
     dispatch(logout());
