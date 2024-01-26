@@ -14,13 +14,14 @@ class ProductController extends Controller
     	return $products;
     }
     public function ProductListByCategory(Request $request){
-    	$cat = $request->remark; //Featured, New... tachs biet ra
+    	$cat = $request->category; //Featured, New... tachs biet ra
     	$products = Product::where('category', $cat)->get();
     	return $products;
     }
     public function ProductListBySubcategory(Request $request){
-    	$subcat = $request->remark; //Featured, New... tachs biet ra
-    	$products = Product::where('subcategory', $subcat)->get();
+    	$cat = $request->category; //Featured, New... tachs biet ra
+        $subcat = $request->subcategory; //Featured, New... tachs biet ra
+    	$products = Product::where('subcategory', $subcat)->where('category', $cat)->get();
     	return $products;
     }
 

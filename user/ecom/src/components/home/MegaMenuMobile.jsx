@@ -1,6 +1,7 @@
 import React, { Component, Fragment, useEffect, useState } from "react";
 import AppURL from "../../api/AppURL";
 import { toast } from "react-toastify";
+import { Link } from "react-router-dom";
 
 const MegaMenuMobile = () => {
   const [menuData, setMenuData] = useState([]);
@@ -42,9 +43,17 @@ const MegaMenuMobile = () => {
             {catItem.subcategory.map((sub, i) => {
               return (
                 <li>
-                  <a href="#" className="accordionItemMobile">
+                  <Link
+                    to={
+                      "productsubcategory/" +
+                      sub.category_name +
+                      "/" +
+                      sub.subcategory_name
+                    }
+                    className="accordionItem"
+                  >
                     {sub.subcategory_name}{" "}
-                  </a>
+                  </Link>
                 </li>
               );
             })}

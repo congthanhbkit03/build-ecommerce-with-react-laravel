@@ -7,6 +7,7 @@ import { toast } from "react-toastify";
 
 const HomeTop = () => {
   const [menuData, setMenuData] = useState([]);
+  const [sliderData, setSliderData] = useState([]);
   useEffect(() => {
     fetch(AppURL.AllCategoryDetails)
       .then((data) => data.json())
@@ -16,6 +17,16 @@ const HomeTop = () => {
       })
       .catch((err) => {
         toast.error("Co loi xay ra");
+      });
+
+    fetch(AppURL.AllSlider)
+      .then((data) => data.json())
+      .then((data) => {
+        console.log(data);
+        setSliderData(data);
+      })
+      .catch((err) => {
+        toast.error("Co loi xay ra khi loi data ra");
       });
   }, []);
   return (
@@ -27,7 +38,7 @@ const HomeTop = () => {
           </Col>
 
           <Col lg={9} md={9} sm={12}>
-            <HomeSlider />
+            <HomeSlider SliderData={sliderData} />
           </Col>
         </Row>
       </Container>

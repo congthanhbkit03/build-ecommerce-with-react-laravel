@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import { Container, Row, Col, Card } from "react-bootstrap";
 import AppURL from "../../api/AppURL";
 import { toast } from "react-toastify";
+import { Link } from "react-router-dom";
 function Categories() {
   const [menuData, setMenuData] = useState([]);
   useEffect(() => {
@@ -27,12 +28,14 @@ function Categories() {
         sm={6}
         xs={6}
       >
-        <Card className="h-100 w-100 text-center">
-          <Card.Body>
-            <img className="center" src={catItem.category_image} />
-            <h5 className="category-name">{catItem.category_name}</h5>
-          </Card.Body>
-        </Card>
+        <Link to={`/productcategory/${catItem.category_name}`}>
+          <Card className="h-100 w-100 text-center">
+            <Card.Body>
+              <img className="center" src={catItem.category_image} />
+              <h5 className="category-name">{catItem.category_name}</h5>
+            </Card.Body>
+          </Card>
+        </Link>
       </Col>
     );
   });

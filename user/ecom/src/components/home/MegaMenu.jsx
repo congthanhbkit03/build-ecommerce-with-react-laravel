@@ -1,4 +1,5 @@
 import React, { Component, Fragment, useEffect } from "react";
+import { Link } from "react-router-dom";
 
 const MegaMenu = ({ data }) => {
   const MenuItemClick = (event) => {
@@ -26,9 +27,17 @@ const MegaMenu = ({ data }) => {
             {CatList.subcategory.map((SubList, i) => {
               return (
                 <li>
-                  <a href="#" className="accordionItem">
+                  <Link
+                    to={
+                      "productsubcategory/" +
+                      CatList.category_name +
+                      "/" +
+                      SubList.subcategory_name
+                    }
+                    className="accordionItem"
+                  >
                     {SubList.subcategory_name}{" "}
-                  </a>
+                  </Link>
                 </li>
               );
             })}

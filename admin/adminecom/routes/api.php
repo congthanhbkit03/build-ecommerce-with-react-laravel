@@ -48,10 +48,10 @@ Route::get('/user',[UserController::class, 'User'])->middleware('auth:api');
 Route::post('/postcontact', [ContactController::class, 'PostContact']);
 Route::get('/siteinfo', [AboutController::class, 'getSiteInfo']);
 Route::get('/allcats', [CategoryController::class, 'allCats']);
-Route::get('/productsByRemark/{remark}', [ProductController::class, 'ProductListByRemark']);
-Route::get('/productsByCategory/{category}', [ProductController::class, 'ProductListByCategory']);
-Route::get('/productsBySubcategory/{subcategory}', [ProductController::class, 'ProductListBySubcategory']);
-Route::get('/homesliders', [SliderController::class, 'GetAllSliders']);
+Route::get('/productlistbyremark/{remark}', [ProductController::class, 'ProductListByRemark']);
+Route::get('/productlistbycategory/{category}', [ProductController::class, 'ProductListByCategory']);
+Route::get('/productlistbysubcategory/{category}/{subcategory}', [ProductController::class, 'ProductListBySubcategory']);
+Route::get('/allsliders', [SliderController::class, 'GetAllSliders']);
 Route::get('/productdetail/{id}', [ProductDetailController::class, 'ProductDetail']);
 //search
 Route::get('/search/{key}', [ProductController::class, 'ProductListBySearch']);

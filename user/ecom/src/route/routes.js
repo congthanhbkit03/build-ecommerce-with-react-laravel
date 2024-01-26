@@ -14,6 +14,8 @@ import RegisterPage from "../pages/RegisterPage";
 import ForgetPasswordPage from "../pages/ForgetPasswordPage";
 import ResetPasswordPage from "../pages/ResetPasswordPage";
 import ProfilePage from "../pages/ProfilePage";
+import ProductCategoryPage from "../pages/ProductCategoryPage";
+import ProductSubCategoryPage from "../pages/ProductSubCategoryPage";
 
 export const router = createBrowserRouter([
   {
@@ -58,8 +60,16 @@ export const router = createBrowserRouter([
     element: <RefundPage />,
   },
   {
-    path: "/productdetails",
+    path: "/productdetails/:id",
     element: <ProductDetailsPage />,
+  },
+  {
+    path: "/productcategory/:category",
+    element: <ProductCategoryPage />,
+  },
+  {
+    path: "/productsubcategory/:category/:subcategory",
+    element: <ProductSubCategoryPage />,
   },
   {
     path: "/notification",

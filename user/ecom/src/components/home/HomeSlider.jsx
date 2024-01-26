@@ -7,62 +7,58 @@ import Slider1 from "../../assets/images/slide1.png";
 import Slider2 from "../../assets/images/slide2.png";
 import Slider3 from "../../assets/images/slide3.png";
 
-class HomeSlider extends Component {
-  render() {
-    var settings = {
-      dots: true,
-      infinite: true,
-      speed: 500,
-      autoplay: true,
-      autoplaySpeed: 3000,
-      slidesToShow: 1,
-      slidesToScroll: 1,
-      initialSlide: 0,
-      arrows: false,
-      responsive: [
-        {
-          breakpoint: 1024,
-          settings: {
-            slidesToShow: 1,
-            slidesToScroll: 1,
-            infinite: true,
-            dots: true,
-          },
-        },
-        {
-          breakpoint: 600,
-          settings: {
-            slidesToShow: 1,
-            slidesToScroll: 1,
-            initialSlide: 2,
-          },
-        },
-        {
-          breakpoint: 480,
-          settings: {
-            slidesToShow: 1,
-            slidesToScroll: 1,
-          },
-        },
-      ],
-    };
-
+const HomeSlider = ({ SliderData }) => {
+  console.log(SliderData);
+  const MyView = SliderData.map((slider, i) => {
     return (
-      <div>
-        <Slider {...settings}>
-          <div>
-            <img className="slider-img" src={Slider1} />
-          </div>
-          <div>
-            <img className="slider-img" src={Slider2} />
-          </div>
-          <div>
-            <img className="slider-img" src={Slider3} />
-          </div>
-        </Slider>
+      <div key={i.toString()}>
+        <img className="slider-img" src={slider.slide_img} />
       </div>
     );
-  }
-}
+  });
+  var settings = {
+    dots: true,
+    infinite: true,
+    speed: 500,
+    autoplay: true,
+    autoplaySpeed: 3000,
+    slidesToShow: 1,
+    slidesToScroll: 1,
+    initialSlide: 0,
+    arrows: false,
+    responsive: [
+      {
+        breakpoint: 1024,
+        settings: {
+          slidesToShow: 1,
+          slidesToScroll: 1,
+          infinite: true,
+          dots: true,
+        },
+      },
+      {
+        breakpoint: 600,
+        settings: {
+          slidesToShow: 1,
+          slidesToScroll: 1,
+          initialSlide: 2,
+        },
+      },
+      {
+        breakpoint: 480,
+        settings: {
+          slidesToShow: 1,
+          slidesToScroll: 1,
+        },
+      },
+    ],
+  };
+
+  return (
+    <div>
+      <Slider {...settings}>{MyView}</Slider>
+    </div>
+  );
+};
 
 export default HomeSlider;
