@@ -51,7 +51,7 @@ Route::get('/allcats', [CategoryController::class, 'allCats']);
 Route::get('/productlistbyremark/{remark}', [ProductController::class, 'ProductListByRemark']);
 Route::get('/productlistbycategory/{category}', [ProductController::class, 'ProductListByCategory']);
 Route::get('/productlistbysubcategory/{category}/{subcategory}', [ProductController::class, 'ProductListBySubcategory']);
-Route::get('/allsliders', [SliderController::class, 'GetAllSliders']);
+Route::get('/allsliders', [SliderController::class, 'AllSliders']);
 Route::get('/productdetails/{id}', [ProductDetailController::class, 'ProductDetail']);
 //search
 Route::get('/search/{key}', [ProductController::class, 'ProductListBySearch']);

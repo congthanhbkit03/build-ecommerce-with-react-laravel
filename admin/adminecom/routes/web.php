@@ -3,6 +3,7 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AdminController; 
 use App\Http\Controllers\Admin\CategoryController; 
+use App\Http\Controllers\Admin\SliderController; 
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -41,6 +42,7 @@ Route::prefix('admin')->group(function(){
 
 	Route::post('/change/password/update',[AdminController::class, 'ChangePasswordUpdate'])->name('change.password.update');
 
+    //for category
 	Route::prefix('category')->group(function(){
 
 		Route::get('/all',[CategoryController::class, 'GetAllCategory'])->name('all.category');
@@ -55,5 +57,38 @@ Route::prefix('admin')->group(function(){
         Route::get('/delete/{id}',[CategoryController::class, 'DeleteCategory'])->name('category.delete');
 
 	});
+
+
+    //for subcategory
+    Route::prefix('subcategory')->group(function(){
+
+        Route::get('/all',[CategoryController::class, 'GetAllSubCategory'])->name('all.subcategory');
+
+        Route::get('/add',[CategoryController::class, 'AddSubCategory'])->name('add.subcategory');
+
+        Route::post('/store',[CategoryController::class, 'StoreSubCategory'])->name('subcategory.store');
+
+        Route::get('/edit/{id}',[CategoryController::class, 'EditSubCategory'])->name('subcategory.edit');
+
+        Route::post('/update',[CategoryController::class, 'UpdateSubCategory'])->name('subcategory.update');
+
+        Route::get('/delete/{id}',[CategoryController::class, 'DeleteSubCategory'])->name('subcategory.delete');
+    });
+
+    //for sliders
+    Route::prefix('slider')->group(function(){
+
+        Route::get('/all',[SliderController::class, 'GetAllSlider'])->name('all.slider');
+
+        Route::get('/add',[SliderController::class, 'AddSlider'])->name('add.slider');
+
+        Route::post('/store',[SliderController::class, 'StoreSlider'])->name('slider.store');
+
+        Route::get('/edit/{id}',[SliderController::class, 'EditSlider'])->name('slider.edit');
+
+        Route::post('/update',[SliderController::class, 'UpdateSlider'])->name('slider.update');
+
+        Route::get('/delete/{id}',[SliderController::class, 'DeleteSlider'])->name('slider.delete');
+    });
 
 });
