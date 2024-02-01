@@ -4,6 +4,7 @@ import Slider from "react-slick";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import AppURL from "../../api/AppURL";
+import { Link } from "react-router-dom";
 
 const NewArrival = () => {
   const [slider, setSlider] = useState(null); //state for slider
@@ -68,29 +69,36 @@ const NewArrival = () => {
     if (NewList.special_price == "na") {
       return (
         <div>
-          <Card className="image-box card">
-            <img className="center" src={NewList.image} />
-            <Card.Body>
-              <p className="product-name-on-card">{NewList.title}</p>
-              <p className="product-price-on-card">Price : ${NewList.price}</p>
-            </Card.Body>
-          </Card>
+          <Link className="text-link" to={"/productdetails/" + NewList.id}>
+            <Card className="image-box card">
+              <img className="center" src={NewList.image} />
+              <Card.Body>
+                <p className="product-name-on-card">{NewList.title}</p>
+                <p className="product-price-on-card">
+                  Price : ${NewList.price}
+                </p>
+              </Card.Body>
+            </Card>
+          </Link>
         </div>
       );
     } else {
       return (
         <div key={NewList.id}>
-          <Card className="image-box card">
-            <img className="center" src={NewList.image} />
-            <Card.Body>
-              <p className="product-name-on-card">{NewList.title}</p>
-              <p className="product-price-on-card">
-                Price :{" "}
-                <strike className="text-secondary">${NewList.price}</strike> $
-                {NewList.special_price}
-              </p>
-            </Card.Body>
-          </Card>
+          {" "}
+          <Link className="text-link" to={"/productdetails/" + NewList.id}>
+            <Card className="image-box card">
+              <img className="center" src={NewList.image} />
+              <Card.Body>
+                <p className="product-name-on-card">{NewList.title}</p>
+                <p className="product-price-on-card">
+                  Price :{" "}
+                  <strike className="text-secondary">${NewList.price}</strike> $
+                  {NewList.special_price}
+                </p>
+              </Card.Body>
+            </Card>
+          </Link>
         </div>
       );
     }

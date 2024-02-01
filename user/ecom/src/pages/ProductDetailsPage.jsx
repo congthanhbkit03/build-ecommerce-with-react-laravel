@@ -1,4 +1,4 @@
-import React, { Fragment, useEffect } from "react";
+import React, { Fragment, useEffect, useState } from "react";
 import FooterDesktop from "../components/common/FooterDesktop";
 import FooterMobile from "../components/common/FooterMobile";
 import NavMenuDesktop from "../components/common/NavMenuDesktop";
@@ -10,7 +10,8 @@ import AppURL from "../api/AppURL";
 
 const ProductDetailsPage = () => {
   const { id } = useParams(); //lay id tu route
-
+  const [productData, setProductData] = useState();
+  console.log(id);
   //tuong duong ComponentDidMount
   useEffect(() => {
     window.scroll(0, 0);
@@ -19,7 +20,11 @@ const ProductDetailsPage = () => {
     //goi api
     fetch(AppURL.ProductDetails(id))
       .then((data) => data.json())
-      .then((data) => console.log(data));
+      .then((data) => {
+        console.log(data);
+        setProductData(data);
+      })
+      .catch((error) => console.log(error));
     //truyen vao component
   }, []);
 
@@ -33,7 +38,7 @@ const ProductDetailsPage = () => {
         <NavMenuMobile />
       </div>
 
-      <ProductDetails />
+      <ProductDetails data={productData} />
       <SuggestedProduct />
       <div className="Desktop">
         <FooterDesktop />

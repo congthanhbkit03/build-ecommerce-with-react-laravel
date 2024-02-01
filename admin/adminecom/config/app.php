@@ -177,6 +177,8 @@ return [
         App\Providers\FortifyServiceProvider::class,
         App\Providers\JetstreamServiceProvider::class,
 
+        //thu vien cho resize anh
+        Intervention\Image\ImageServiceProvider::class,
     ],
 
     /*
@@ -231,7 +233,8 @@ return [
         'URL' => Illuminate\Support\Facades\URL::class,
         'Validator' => Illuminate\Support\Facades\Validator::class,
         'View' => Illuminate\Support\Facades\View::class,
-
+        //thu vien intervention
+        'Image' => Intervention\Image\Facades\Image::class
     ],
 
 ];

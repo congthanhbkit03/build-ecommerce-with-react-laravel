@@ -28,7 +28,10 @@ function Categories() {
         sm={6}
         xs={6}
       >
-        <Link to={`/productcategory/${catItem.category_name}`}>
+        <Link
+          className="text-link"
+          to={`/productcategory/${catItem.category_name}`}
+        >
           <Card className="h-100 w-100 text-center">
             <Card.Body>
               <img className="center" src={catItem.category_image} />

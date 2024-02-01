@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import { Container, Row, Col, Card } from "react-bootstrap";
+import { Link } from "react-router-dom";
 
 const SubCategory = ({ SubCategory, Category, ProductData }) => {
   const MyView = ProductData.map((ProductList, i) => {
@@ -14,15 +15,18 @@ const SubCategory = ({ SubCategory, Category, ProductData }) => {
           xs={6}
           key={ProductList.id}
         >
-          <Card className="image-box card w-100">
-            <img className="center w-75" src={ProductList.image} />
-            <Card.Body>
-              <p className="product-name-on-card">{ProductList.title}</p>
-              <p className="product-price-on-card">
-                Price : ${ProductList.price}
-              </p>
-            </Card.Body>
-          </Card>
+          {" "}
+          <Link className="text-link" to={"/productdetails/" + ProductList.id}>
+            <Card className="image-box card w-100">
+              <img className="center w-75" src={ProductList.image} />
+              <Card.Body>
+                <p className="product-name-on-card">{ProductList.title}</p>
+                <p className="product-price-on-card">
+                  Price : ${ProductList.price}
+                </p>
+              </Card.Body>
+            </Card>
+          </Link>
         </Col>
       );
     } else {
@@ -36,17 +40,21 @@ const SubCategory = ({ SubCategory, Category, ProductData }) => {
           xs={6}
           key={ProductList.id}
         >
-          <Card className="image-box card w-100">
-            <img className="center w-75" src={ProductList.image} />
-            <Card.Body>
-              <p className="product-name-on-card">{ProductList.title}</p>
-              <p className="product-price-on-card">
-                Price :{" "}
-                <strike className="text-secondary">${ProductList.price}</strike>{" "}
-                ${ProductList.special_price}
-              </p>
-            </Card.Body>
-          </Card>
+          <Link className="text-link" to={"/productdetails/" + ProductList.id}>
+            <Card className="image-box card w-100">
+              <img className="center w-75" src={ProductList.image} />
+              <Card.Body>
+                <p className="product-name-on-card">{ProductList.title}</p>
+                <p className="product-price-on-card">
+                  Price :{" "}
+                  <strike className="text-secondary">
+                    ${ProductList.price}
+                  </strike>{" "}
+                  ${ProductList.special_price}
+                </p>
+              </Card.Body>
+            </Card>
+          </Link>
         </Col>
       );
     }
