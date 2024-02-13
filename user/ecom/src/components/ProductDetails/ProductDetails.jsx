@@ -1,9 +1,7 @@
 import React, { Component, Fragment } from "react";
 import { Container, Row, Col, Form, Button } from "react-bootstrap";
-import Product1 from "../../assets/images/products/product1.png";
-import Product2 from "../../assets/images/products/product2.png";
-import Product3 from "../../assets/images/products/product3.png";
-import Product4 from "../../assets/images/products/product4.png";
+import SuggestedProduct from "./SuggestedProduct";
+import ReviewList from "./ReviewList";
 
 import ReactDOM from "react-dom";
 const ProductDetails = ({ data }) => {
@@ -223,56 +221,15 @@ const ProductDetails = ({ data }) => {
               </Col>
 
               <Col className="" md={6} lg={6} sm={12} xs={12}>
-                <h6 className="mt-2">REVIEWS</h6>
-                <p className=" p-0 m-0">
-                  <span className="Review-Title">Kazi Ariyan</span>{" "}
-                  <span className="text-success">
-                    <i className="fa fa-star"></i>{" "}
-                    <i className="fa fa-star"></i>{" "}
-                    <i className="fa fa-star"></i>{" "}
-                    <i className="fa fa-star"></i>{" "}
-                  </span>{" "}
-                </p>
-                <p>
-                  Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed
-                  diam nonummy nibh euismod tincidunt ut laoreet dolore magna
-                  aliquam erat volutpat.
-                </p>
-
-                <p className=" p-0 m-0">
-                  <span className="Review-Title">Kazi Ariyan</span>{" "}
-                  <span className="text-success">
-                    <i className="fa fa-star"></i>{" "}
-                    <i className="fa fa-star"></i>{" "}
-                    <i className="fa fa-star"></i>{" "}
-                    <i className="fa fa-star"></i>{" "}
-                  </span>{" "}
-                </p>
-                <p>
-                  Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed
-                  diam nonummy nibh euismod tincidunt ut laoreet dolore magna
-                  aliquam erat volutpat.
-                </p>
-
-                <p className=" p-0 m-0">
-                  <span className="Review-Title">Kazi Ariyan</span>{" "}
-                  <span className="text-success">
-                    <i className="fa fa-star"></i>{" "}
-                    <i className="fa fa-star"></i>{" "}
-                    <i className="fa fa-star"></i>{" "}
-                    <i className="fa fa-star"></i>{" "}
-                  </span>{" "}
-                </p>
-                <p>
-                  Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed
-                  diam nonummy nibh euismod tincidunt ut laoreet dolore magna
-                  aliquam erat volutpat.
-                </p>
+                {data && data.reviews && <ReviewList reviews={data.reviews} />}
               </Col>
             </Row>
           </Col>
         </Row>
       </Container>
+      {data && data.product && data.product[0].subcategory && (
+        <SuggestedProduct subcategory={data.product[0].subcategory} />
+      )}
     </Fragment>
   );
 };

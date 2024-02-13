@@ -21,6 +21,13 @@ class AppURL {
     return this.BaseURL + "/productdetails/" + code;
   }
 
+  static SimilarProduct(code) {
+    return this.BaseURL + "/similar/" + code;
+  }
+
+  static ReviewList(code) {
+    return this.BaseURL + "/reviewlist/" + code;
+  }
   //slider
   static AllSlider = this.BaseURL + "/allsliders";
   //auth uri

@@ -4,7 +4,6 @@ import FooterMobile from "../components/common/FooterMobile";
 import NavMenuDesktop from "../components/common/NavMenuDesktop";
 import NavMenuMobile from "../components/common/NavMenuMobile";
 import ProductDetails from "../components/ProductDetails/ProductDetails";
-import SuggestedProduct from "../components/ProductDetails/SuggestedProduct";
 import { useParams } from "react-router-dom";
 import AppURL from "../api/AppURL";
 
@@ -26,7 +25,7 @@ const ProductDetailsPage = () => {
       })
       .catch((error) => console.log(error));
     //truyen vao component
-  }, []);
+  }, [id]); //id thay doi thi goi lại du lieu de hien thi - neu hong no chi chay 1 lan, doi id nó ko load lai du lieu
 
   return (
     <Fragment>
@@ -39,7 +38,6 @@ const ProductDetailsPage = () => {
       </div>
 
       <ProductDetails data={productData} />
-      <SuggestedProduct />
       <div className="Desktop">
         <FooterDesktop />
       </div>

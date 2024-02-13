@@ -65,7 +65,7 @@
 
 <div class="mb-3">
  <label for="formFile" class="form-label">Upload Category Image</label>
-	 <input class="form-control" name="category_image" type="file" id="image">
+	 <input class="form-control" name="category_image" type="file" id="image" value="{{ $category->category_image }}>
 	 </div>
 
 

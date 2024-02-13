@@ -1,5 +1,6 @@
 <?php
 
+
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\User\AuthController;
@@ -13,6 +14,7 @@ use App\Http\Controllers\Admin\ProductController;
 use App\Http\Controllers\Admin\SliderController;
 use App\Http\Controllers\Admin\ProductDetailController;
 use App\Http\Controllers\Admin\NotificationController;
+use App\Http\Controllers\Admin\ReviewController;
 
 /*
 |--------------------------------------------------------------------------
@@ -26,24 +28,24 @@ use App\Http\Controllers\Admin\NotificationController;
 */
 
 
- /////////////// User Login API Start ////////////////////////
+/////////////// User Login API Start ////////////////////////
 
- // Login Routes 
-Route::post('/login',[AuthController::class, 'Login']);
+// Login Routes 
+Route::post('/login', [AuthController::class, 'Login']);
 
- // Register Routes 
-Route::post('/register',[AuthController::class, 'Register']);
+// Register Routes 
+Route::post('/register', [AuthController::class, 'Register']);
 
- // Forget Password Routes 
-Route::post('/forgetpassword',[ForgetController::class, 'ForgetPassword']);
+// Forget Password Routes 
+Route::post('/forgetpassword', [ForgetController::class, 'ForgetPassword']);
 
- // Reset Password Routes 
-Route::post('/resetpassword',[ResetController::class, 'ResetPassword']);
+// Reset Password Routes 
+Route::post('/resetpassword', [ResetController::class, 'ResetPassword']);
 
- // Current User Route 
-Route::get('/user',[UserController::class, 'User'])->middleware('auth:api');
+// Current User Route 
+Route::get('/user', [UserController::class, 'User'])->middleware('auth:api');
 
- /////////////// End User Login API Start ////////////////////////
+/////////////// End User Login API Start ////////////////////////
 
 Route::post('/postcontact', [ContactController::class, 'PostContact']);
 Route::get('/siteinfo', [AboutController::class, 'getSiteInfo']);
@@ -55,6 +57,11 @@ Route::get('/allsliders', [SliderController::class, 'AllSliders']);
 Route::get('/productdetails/{id}', [ProductDetailController::class, 'ProductDetail']);
 //search
 Route::get('/search/{key}', [ProductController::class, 'ProductListBySearch']);
+// Similar Product Route
+Route::get('/similar/{subcategory}', [ProductController::class, 'SimilarProduct']);
+
+// Review Product Route
+Route::get('/reviewlist/{id}', [ReviewController::class, 'ReviewList']);
 //notification
 Route::get('/notification', [NotificationController::class, 'NotificationHistory']);
 

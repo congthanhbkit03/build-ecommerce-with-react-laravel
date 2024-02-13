@@ -4,6 +4,10 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AdminController; 
 use App\Http\Controllers\Admin\CategoryController; 
 use App\Http\Controllers\Admin\SliderController; 
+
+use App\Http\Controllers\Admin\ProductController; 
+use App\Http\Controllers\Admin\ContactController; 
+use App\Http\Controllers\Admin\ReviewController; 
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -91,4 +95,26 @@ Route::prefix('admin')->group(function(){
         Route::get('/delete/{id}',[SliderController::class, 'DeleteSlider'])->name('slider.delete');
     });
 
+    //for products
+    Route::prefix('product')->group(function(){
+
+        Route::get('/all',[ProductController::class, 'GetAllProduct'])->name('all.product');
+
+        Route::get('/add',[ProductController::class, 'AddProduct'])->name('add.product');
+
+        Route::post('/store',[ProductController::class, 'StoreProduct'])->name('product.store');
+
+        Route::get('/edit/{id}',[ProductController::class, 'EditProduct'])->name('product.edit');
+
+        Route::post('/update',[ProductController::class, 'UpdateProduct'])->name('product.update');
+
+        Route::get('/delete/{id}',[ProductController::class, 'DeleteProduct'])->name('product.delete');
+    });
+
+    /// Contact Message Route 
+    Route::get('/all/message',[ContactController::class, 'GetAllMessage'])->name('contact.message');
+    Route::get('/message/delete/{id}',[ContactController::class, 'DeleteMessage'])->name('message.delete');
+
+    /// Product Review Route 
+    Route::get('/all/review',[ReviewController::class, 'GetAllReview'])->name('all.review');
 });
