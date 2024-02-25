@@ -1,81 +1,128 @@
-import React, { Component, Fragment } from "react";
+import React, { Component, Fragment, useState } from "react";
 import { Container, Row, Col, Form, Button } from "react-bootstrap";
 import SuggestedProduct from "./SuggestedProduct";
 import ReviewList from "./ReviewList";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 import ReactDOM from "react-dom";
+import AppURL from "../../api/AppURL";
+import { useSelector } from "react-redux";
 const ProductDetails = ({ data }) => {
+  const { userData } = useSelector((state) => state.user);
   console.log(data);
+
   //data nay la object gom {detail: {}, product: {}}
   function imgOnClick(event) {
     let imgSrc = event.target.getAttribute("src");
     let previewImg = document.getElementById("previewImg");
     ReactDOM.findDOMNode(previewImg).setAttribute("src", imgSrc);
   }
-  let ProductAllData = data;
-  let title;
-  let brand;
-  let category;
-  let subcategory;
-  let image;
-  let price;
-  let product_code;
-  let remark;
-  let special_price;
-  let star;
-  let image_one;
-  let image_two;
-  let image_three;
-  let image_four;
-  let product_id;
-  let short_description;
-  let long_description;
-  let color;
-  let size;
-  if (ProductAllData) {
-    title = ProductAllData["product"][0]["title"];
-    brand = ProductAllData["product"][0]["brand"];
-    category = ProductAllData["product"][0]["category"];
-    subcategory = ProductAllData["product"][0]["subcategory"];
-    image = ProductAllData["product"][0]["image"];
-    price = ProductAllData["product"][0]["price"];
-    product_code = ProductAllData["product"][0]["product_code"];
-    remark = ProductAllData["product"][0]["remark"];
-    special_price = ProductAllData["product"][0]["special_price"];
-    star = ProductAllData["product"][0]["star"];
+  const [isSize, setIsSize] = useState(null);
+  const [isColor, setIsColor] = useState(null);
+  const [scolor, setColor] = useState(""); //scolor = state color de phan biet bien color ben duoi
+  const [ssize, setSize] = useState(""); //ssize = state size
+  const [quantity, setQuantity] = useState("");
+  const [atcLabel, setAtcLable] = useState("Add To Cart");
+  let ProductAllData = data ?? {};
 
-    image_one = ProductAllData["detail"][0]["image_1"];
-    image_two = ProductAllData["detail"][0]["image_2"];
-    image_three = ProductAllData["detail"][0]["image_3"];
-    image_four = ProductAllData["detail"][0]["image_4"];
-    color = ProductAllData["detail"][0]["color"];
-    size = ProductAllData["detail"][0]["size"];
-    product_id = ProductAllData["detail"][0]["product_id"];
-    short_description = ProductAllData["detail"][0]["short_description"];
-    long_description = ProductAllData["detail"][0]["long_description"];
+  let title = ProductAllData["product"]
+    ? ProductAllData["product"][0]["title"]
+    : "";
+  let brand = ProductAllData["product"]
+    ? ProductAllData["product"][0]["brand"]
+    : "";
+  let category = ProductAllData["product"]
+    ? ProductAllData["product"][0]["category"]
+    : "";
+  let subcategory = ProductAllData["product"]
+    ? ProductAllData["product"][0]["subcategory"]
+    : "";
+  let image = ProductAllData["product"]
+    ? ProductAllData["product"][0]["image"]
+    : "";
+  let price = ProductAllData["product"]
+    ? ProductAllData["product"][0]["price"]
+    : "";
+  let product_code = ProductAllData["product"]
+    ? ProductAllData["product"][0]["product_code"]
+    : "";
+  let remark = ProductAllData["product"]
+    ? ProductAllData["product"][0]["remark"]
+    : "";
+  let special_price = ProductAllData["product"]
+    ? ProductAllData["product"][0]["special_price"]
+    : "";
+  let star = ProductAllData["product"]
+    ? ProductAllData["product"][0]["star"]
+    : "";
 
-    var ColorDiv = "d-none"; //class cho vung hien thi mau sac - neu ko co thi an di
-    if (color != "na") {
-      let ColorArray = color.split(",");
-      var ColorOption = ColorArray.map((ColorList, i) => {
-        return <option value={ColorList}> {ColorList} </option>;
-      });
-      ColorDiv = "";
-    } else {
-      ColorDiv = "d-none";
-    }
+  let image_one = ProductAllData["detail"]
+    ? ProductAllData["detail"][0]["image_1"]
+    : "";
+  let image_two = ProductAllData["detail"]
+    ? ProductAllData["detail"][0]["image_2"]
+    : "";
+  let image_three = ProductAllData["detail"]
+    ? ProductAllData["detail"][0]["image_3"]
+    : "";
+  let image_four = ProductAllData["detail"]
+    ? ProductAllData["detail"][0]["image_4"]
+    : "";
+  let color = ProductAllData["detail"]
+    ? ProductAllData["detail"][0]["color"]
+    : "";
+  let size = ProductAllData["detail"]
+    ? ProductAllData["detail"][0]["size"]
+    : "";
+  let product_id = ProductAllData["detail"]
+    ? ProductAllData["detail"][0]["product_id"]
+    : "";
+  let short_description = ProductAllData["detail"]
+    ? ProductAllData["detail"][0]["short_description"]
+    : "";
+  let long_description = ProductAllData["detail"]
+    ? ProductAllData["detail"][0]["long_description"]
+    : "";
 
-    var SizeDiv = "d-none";
-    if (size != "na") {
-      let SizeArray = size.split(",");
-      var SizeOption = SizeArray.map((SizeList, i) => {
-        return <option value={SizeList}> {SizeList} </option>;
-      });
-      SizeDiv = "";
-    } else {
-      SizeDiv = "d-none";
-    }
+  var ColorDiv = "d-none"; //class cho vung hien thi mau sac - neu ko co thi an di
+  if (color != "na") {
+    let ColorArray = color.split(",");
+    var ColorOption = ColorArray.map((ColorList, i) => {
+      return <option value={ColorList}> {ColorList} </option>;
+    });
+    ColorDiv = "";
+  } else {
+    ColorDiv = "d-none";
   }
+
+  var SizeDiv = "d-none";
+  if (size != "na") {
+    let SizeArray = size.split(",");
+    var SizeOption = SizeArray.map((SizeList, i) => {
+      return <option value={SizeList}> {SizeList} </option>;
+    });
+    SizeDiv = "";
+  } else {
+    SizeDiv = "d-none";
+  }
+
+  const colorOnChange = (event) => {
+    let color = event.target.value;
+    // alert(color);
+    setColor(color);
+  };
+
+  const sizeOnChange = (event) => {
+    let size = event.target.value;
+    // alert(size);
+    setSize(size);
+  };
+
+  const quantityOnChange = (event) => {
+    let quantity = event.target.value;
+    setQuantity(quantity);
+  };
 
   const PriceOption = (price, special_price) => {
     if (special_price == "na") {
@@ -89,6 +136,72 @@ const ProductDetails = ({ data }) => {
       );
     }
   };
+
+  if (isSize === null) {
+    if (size != "na") {
+      setIsSize("YES");
+    } else {
+      setIsSize("NO");
+    }
+  }
+
+  if (isColor === null) {
+    if (color != "na") {
+      setIsColor("YES");
+    } else {
+      setIsColor("NO");
+    }
+  }
+
+  const addToCart = () => {
+    if (isColor === "YES" && scolor.length === 0) {
+      toast.error("Please Select Color");
+    } else if (isSize === "YES" && ssize.length === 0) {
+      toast.error("Please Select Size");
+    } else if (quantity.length === 0) {
+      toast.error("Please Select Quantity");
+    } else if (!localStorage.getItem("token")) {
+      toast.warn("Please You have to Login First");
+    } else {
+      setAtcLable("Adding...");
+      const formData = {
+        color: scolor,
+        size: ssize,
+        quantity: quantity,
+        product_code: product_code,
+        email: userData.user ? userData.user.email : "N/A", //cai nay lay tu localstorage len sau
+      };
+      console.log(formData);
+      fetch(AppURL.addToCart, {
+        method: "post",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(formData),
+      })
+        .then((data) => data.json())
+        .then((data) => {
+          console.log(data);
+          if (data === 1) {
+            toast.success("Product Added Successfully");
+            setAtcLable("Add To Cart");
+
+            // this.setState({PageRefreshStatus:true})
+          } else {
+            toast.error("Your Request is not done ! Try Aagain", {
+              position: "top-right",
+            });
+            setAtcLable("Add To Cart");
+          }
+        })
+        .catch((error) => {
+          toast.error("Your Request is not done ! Try Aagain");
+          setAtcLable("Add To Cart");
+          console.log(error);
+        });
+    }
+  };
+
   return (
     <Fragment>
       <Container fluid={true} className="BetweenTwoSection">
@@ -166,7 +279,10 @@ const ProductDetails = ({ data }) => {
 
                 <div className={ColorDiv}>
                   <h6 className="mt-2"> Choose Color </h6>
-                  <select className="form-control form-select">
+                  <select
+                    className="form-control form-select"
+                    onChange={colorOnChange}
+                  >
                     <option>Choose Color</option>
                     {ColorOption}
                   </select>
@@ -174,7 +290,10 @@ const ProductDetails = ({ data }) => {
 
                 <div className={SizeDiv}>
                   <h6 className="mt-2"> Choose Size </h6>
-                  <select className="form-control form-select">
+                  <select
+                    className="form-control form-select"
+                    onChange={sizeOnChange}
+                  >
                     <option>Choose Size</option>
                     {SizeOption}
                   </select>
@@ -182,7 +301,10 @@ const ProductDetails = ({ data }) => {
 
                 <div className="">
                   <h6 className="mt-2"> Choose Quantity </h6>
-                  <select className="form-control form-select">
+                  <select
+                    className="form-control form-select"
+                    onChange={quantityOnChange}
+                  >
                     <option>Choose Quantity</option>
                     <option value="01">01</option>
                     <option value="02">02</option>
@@ -198,7 +320,7 @@ const ProductDetails = ({ data }) => {
                 </div>
 
                 <div className="input-group mt-3">
-                  <button className="btn site-btn m-1 ">
+                  <button className="btn site-btn m-1 " onClick={addToCart}>
                     {" "}
                     <i className="fa fa-shopping-cart"></i> Add To Cart
                   </button>
@@ -230,6 +352,19 @@ const ProductDetails = ({ data }) => {
       {data && data.product && data.product[0].subcategory && (
         <SuggestedProduct subcategory={data.product[0].subcategory} />
       )}
+
+      <ToastContainer
+        position="top-center"
+        autoClose={5000}
+        hideProgressBar={false}
+        newestOnTop={false}
+        closeOnClick
+        rtl={false}
+        pauseOnFocusLoss
+        draggable
+        pauseOnHover
+        theme="dark"
+      />
     </Fragment>
   );
 };

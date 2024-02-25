@@ -6,18 +6,23 @@ import { defaultoptions } from "../../utils/auth";
 import { useDispatch, useSelector } from "react-redux";
 import { logout } from "../../features/userSlice";
 import { readUserByToken } from "../../features/userSlice";
+import { getCartCount } from "../../features/cartSlice";
 
 function NavMenuDesktop() {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   //redux state
   const { token, userData } = useSelector((state) => state.user);
+  const { count } = useSelector((state) => state.cart);
+  console.log("Nav Menu: ", userData);
 
   // automatically authenticate user if token is found
   useEffect(() => {
     // const token = localStorage.getItem("token");
     if (token) {
       dispatch(readUserByToken());
+
+      dispatch(getCartCount());
     }
   }, [token]);
 
@@ -74,6 +79,9 @@ function NavMenuDesktop() {
                     <Link to="/register" className="h4 btn">
                       Đăng ký
                     </Link>
+                    <Link to="/cart" className="cart-btn">
+                      <i className="fa fa-shopping-cart"></i>0 Items{" "}
+                    </Link>
                   </>
                 )}
 
@@ -85,11 +93,12 @@ function NavMenuDesktop() {
                     <button onClick={logoutHandler} className="h4 btn">
                       Logout
                     </button>
+                    <Link to="/cart" className="cart-btn">
+                      <i className="fa fa-shopping-cart"></i>
+                      {count} Items{" "}
+                    </Link>
                   </>
                 )}
-                <Link to="/cart" className="cart-btn">
-                  <i className="fa fa-shopping-cart"></i> 3 Items{" "}
-                </Link>
               </Col>
             </Row>
           </Container>
